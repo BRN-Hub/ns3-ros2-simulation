@@ -1,5 +1,4 @@
 import rclpy
-from geometry_msgs.msg import Vector3
 from  geometry_msgs.msg import TransformStamped
 from tf2_ros import TransformBroadcaster
 
@@ -27,7 +26,7 @@ def main():
 
         publish_tf(node_handle, transform_broadcaster, msg, "map", msg.child_frame_id)
 
-    subscription = node.create_subscription(TransformStamped, "position", position_callback, 10)
+    subscription = node.create_subscription(TransformStamped, "position_ns3_ros", position_callback, 10)
 
     rclpy.spin(node)
 
