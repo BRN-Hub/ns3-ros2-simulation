@@ -1,3 +1,4 @@
+# Importação das bibliotecas necessárias
 import rclpy
 from geometry_msgs.msg import TransformStamped
 import ns.core
@@ -50,13 +51,13 @@ def main(args=None):
     nodeMobile.Create(qtd_nodes_mobiles)
     mobility_mobile = ns.mobility.MobilityHelper()
     mobility_mobile.SetMobilityModel("ns3::ConstantVelocityMobilityModel")
-
     mobility_mobile.Install(nodeMobile)
 
+    # Função callback para atualização do posicionamento dos nós móveis na simulação ns-3
     def update_position(msg):
         nodeMobile.Get(0).GetObject(ns.mobility.MobilityModel.GetTypeId()).SetPosition(ns.mobility.Vector(msg.transform.translation.x, msg.transform.translation.y, msg.transform.translation.z))
 
-    subscribe = node_handle.create_subscription(TransformStamped, "position_ros_ns3", update_position, 10)    
+    subscribe = node_handle.create_subscription(TransformStamped, "position_ros_ns3", update_position, 10)
 
     '''
     ============= Moviment using WaypointMobilityModel =============
